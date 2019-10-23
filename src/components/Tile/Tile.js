@@ -4,11 +4,11 @@ import "./Tile.css";
 function Tile() {
 
   return (
-    <div className="tile col s12">
-          <div class="card-panel teal">
+   
+          <div className="box">
            
           </div>
-    </div>
+   
   )
 
 }

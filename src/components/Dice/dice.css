@@ -1,0 +1,45 @@
+.dice-custom{
+    width:30vw;
+    height:30vh;
+    background-color:red;
+    position: center;
+
+
+    
+}
+
+.parent-dice-custom{
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.dice-header{
+    background:white;
+    height:30%;
+    width:50%;
+    justify-content: center;
+    display:flex;
+    align-items: center;
+}
+
+.dice-number{
+    background:white;
+    height:30%;
+    width:50%;
+    justify-content: center;
+    display:flex;
+    align-items: center;
+}
+.dice-roll{
+    background:white;
+    background:burlywood;
+    border:none;
+    border-radius: 50%;
+    height:10%;
+    width:10%;
+    justify-content: center;
+    display:flex;
+    align-items: center;
+}
