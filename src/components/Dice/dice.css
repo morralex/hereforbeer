@@ -36,9 +36,9 @@
     background:white;
     background:burlywood;
     border:none;
-    border-radius: 4px;
+    border-radius: 50%;
     height:10%;
-    width:50%;
+    width:10%;
     justify-content: center;
     display:flex;
     align-items: center;

@@ -1,46 +1,62 @@
-import React from "react";
+import React, { Component } from "react";
 import Tile from "../Tile/Tile";
-import Dice from "../Dice/Dice"
-function Board() {
+// import Dice from "../Dice/Dice"
 
-    return (
-           <div className="container">
-               <div className="row">
+
+class Board extends Component {
+    state = {
+        tiles: Array(8).fill(null)
+
+    }
+    renderTile(i) {
+        return (
+            <Tile
+                value={this.state.tiles[i]}
+            />
+        );
+    }
+    render() {
+        return (
+
+            <div>
+                {/* <div className="status">{status}</div> */}
+                <div className="row">
                     <div className="col s4">
-                        <Tile id="sq0" />
+                        {this.renderTile(0)}
                     </div>
                     <div className="col s4">
-                        <Tile id="sq1" />
+                        {this.renderTile(1)}
                     </div>
                     <div className="col s4">
-                        <Tile id="sq2" />
+                        {this.renderTile(2)}
                     </div>
-               </div>
-               <div className="row">
-                    <div className="col s4">
-                        <Tile id="sq3" />
+                </div>
+                <div className="row">
+                    <div className="col s4 left">
+                        {this.renderTile(3)}
                     </div>
-                    <div className="col s4">
-                        <Dice />
+                    {/* <div className="col s4">
+                        {this.renderTile(1)}
+                    </div> */}
+                    <div className="col s4 right">
+                        {this.renderTile(7)}
                     </div>
+                </div>
+                <div className="row">
                     <div className="col s4">
-                        <Tile id="sq7" />
-                    </div>
-               </div>
-               <div className="row">
-                    <div className="col s4">
-                        <Tile id="sq6" />
-                    </div>
-                    <div className="col s4">
-                        <Tile id="sq5" />
+                        {this.renderTile(4)}
                     </div>
                     <div className="col s4">
-                        <Tile id="sq4" />
+                        {this.renderTile(5)}
                     </div>
-               </div>
-           </div>
-        
-    )
+                    <div className="col s4">
+                        {this.renderTile(6)}
+                    </div>
+                </div>
+            </div>
+
+        )
+    }
 
 }
 
