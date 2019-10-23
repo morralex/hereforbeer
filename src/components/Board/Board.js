@@ -1,9 +1,15 @@
 import React from "react";
 import Tile from "../Tile/Tile";
+import Roll from "../Dice/Dice"
+// import Star from "../Star/Star";
+
+
 function Board() {
 
     return (
            <div className="container">
+               <Roll />
+               
                <div className="row">
                     <div className="col s3">
                         <Tile id="sq1" />
@@ -48,7 +54,10 @@ function Board() {
                         <Tile id="sq7" />
                     </div>
                </div>
+             
+                 
            </div>
+           
         
     )
 
