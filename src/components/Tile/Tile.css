@@ -1,5 +1,8 @@
-.card-panel{
-    background:red;
-    height:30vh;
-};
-
+div.box {
+    background-color: teal;
+    color: white;
+    height: 30vh;
+    width: 100%;
+    border-style: solid;
+    border-color: black;
+}
