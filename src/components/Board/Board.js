@@ -11,23 +11,13 @@ class Board extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            current: this.roll(),
+            current: "",
             face: "",
             tiles: Array(8).fill(null),
             board: [[{ player: 1, coins: '', stars: '' }, { player: 2, coins: '', stars: '' }, { player: 3, coins: '', stars: '' }, { player: 4, coins: '', stars: '' }], [], [], [], [], [], [], []]
         }
 
     }
-    roll = () => {
-        return Math.floor(Math.random() * 3) + 1;
-    };
-    setCurrentValue = () => {
-        const val = this.roll()
-        this.setState({ current: val })
-        this.setFace();
-        this.playerMove(this.roll());
-    }
-
 
     renderTile(i) {
         return (
@@ -36,23 +26,35 @@ class Board extends Component {
             />
         );
     }
-    setFace = () => {
 
-        if (this.state.current === 1) {
-            this.setState({ face: faceOne })
-        } else if (this.state.current === 2) {
-            this.setState({ face: faceTwo })
-        } else if (this.state.current === 3) {
-            this.setState({ face: faceThree })
-        } else if (this.state.current === 4) {
-            this.setState({ face: faceFour })
-        } else if (this.state.current === 5) {
-            this.setState({ face: faceFive })
-        } else if (this.state.current === 6) {
-            this.setState({ face: faceSix })
-        }
-        console.log(this.state.current)
+    roll = () => {
+        return Math.floor(Math.random() * 3) + 1;
+    };
+    setCurrentValue = () => {
+        const val = this.roll()
+        const face = this.getFace(val);
+        this.setState({ current: val, face })
+        this.playerMove(val);
+        
     }
+
+    getFace = (val) => {
+        console.log(val);
+        if (val === 1) {
+            return faceOne
+        } else if (val === 2) {
+            return faceTwo
+        } else if (val === 3) {
+            return faceThree
+        } else if (val === 4) {
+            return faceFour
+        } else if (val === 5) {
+            return faceFive
+        } else if (val === 6) {
+            return faceSix
+        }
+    }
+
     playerMove = (roll) => {
         console.log(`Dice Roll : ${roll}`)
         let stopLoop = false;
@@ -108,7 +110,7 @@ class Board extends Component {
                         <div className="card blue-grey darken-1">
                             <div className="row card-content white-text">
                                 <div id="die-pic">
-                                    <img id="diceImg" src={this.state.face} alt={this.state.current}></img>
+                                    <img id="diceImg" src={this.state.face} alt={this.state.face}></img>
                                 </div>
                             </div>
                             <div className="row">
