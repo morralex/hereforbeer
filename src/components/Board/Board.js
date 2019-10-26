@@ -1,4 +1,4 @@
-    import React, { Component } from "react";
+import React, { Component } from "react";
     import Tile from "../Tile/Tile";
     import faceOne from "../../images/dice/faceOne.png";
     import faceTwo from "../../images/dice/faceTwo.png";
