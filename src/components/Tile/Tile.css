@@ -2,7 +2,51 @@ div.box {
     background-color: teal;
     color: white;
     height: 50vh;
-    
+    position: relative;
+    border-style: solid;
+    border-color: black;
+}
+.player1 {
+    background-color: red;
+    color: white;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-style: solid;
+    border-color: black;
+}
+.player2 {
+    background-color: blue;
+    color: white;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-style: solid;
+    border-color: black;
+}
+.player3 {
+    background-color: green;
+    color: white;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-style: solid;
+    border-color: black;
+}
+.player4 {
+    background-color: yellow;
+    color: white;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
     border-style: solid;
     border-color: black;
 }

@@ -14,15 +14,14 @@ class Board extends Component {
             current: "",
             face: "",
             tiles: Array(8).fill(null),
-            board: [[{ player: 1, coins: '', stars: '' }, { player: 2, coins: '', stars: '' }, { player: 3, coins: '', stars: '' }, { player: 4, coins: '', stars: '' }], [], [], [], [], [], [], []]
+            board: [[{ player: 1, coins: 21, stars: 0 }, { player: 2, coins: 0, stars: 0 }, { player: 3, coins: 0, stars: 0 }, { player: 4, coins: 0, stars: 0 }], [], [], [], [], [], [], []]
         }
-
     }
-
+    
     renderTile(i) {
         return (
             <Tile
-                value={this.state.tiles[i]}
+                players={this.state.board[i]}
             />
         );
     }
@@ -30,12 +29,22 @@ class Board extends Component {
     roll = () => {
         return Math.floor(Math.random() * 3) + 1;
     };
+
     setCurrentValue = () => {
         const val = this.roll()
         const face = this.getFace(val);
         this.setState({ current: val, face })
         this.playerMove(val);
-        
+
+    };
+
+    starCheck = (player,postion) => {
+        if (postion >=7 && player.coins >=20){
+            player.coins = player.coins - 20;
+            player.stars++ ;
+            console.log(`You have ${player.coins} coins`);
+            console.log(`You have ${player.stars} stars`) 
+        }
     }
 
     getFace = (val) => {
@@ -59,29 +68,30 @@ class Board extends Component {
         console.log(`Dice Roll : ${roll}`)
         let stopLoop = false;
         for (let i = 0; i < this.state.board.length; i++) {
-            for (let x = 0; x < [i].length; x++) {
-                if (stopLoop === false) {
-                    let result = this.state.board[i].find(obj => {
-                        if (obj.player === 1) {
-                            return obj.player === 1;
-                        }
-                    })
-                    if (result !== undefined) {
-                        console.log(`The current position is ${i + roll}`)
-                        this.state.board[i].splice(0, 1)
-                        if (i + roll <= 7) {
-                            this.state.board[i + roll].push(result);
-                            console.log(this.state.board)
-                            stopLoop = true;
-                        }
-                        else {
-                            this.state.board[(i + roll) - (this.state.board.length)].push(result);
-                            console.log(this.state.board)
-                            stopLoop = true
-                        }
+            let x = -1;
+            if (stopLoop === false) {
+                let result = this.state.board[i].find(obj => {
+                    x++;
+                    if (obj.player === 1) {
+                        return obj.player === 1;
+                    }
+                })
+                if (result !== undefined) {
+                    console.log(`The current position is ${i + roll}`)
+                    console.log(`The X is ${x}`)
+                    this.state.board[i].splice(x, 1)
+                    if (i + roll <= 7) {
+                        this.state.board[i + roll].push(result);
+                        console.log(this.state.board)
+                        stopLoop = true;
+                    }
+                    else {
+                        this.state.board[(i + roll) - (this.state.board.length)].push(result);
+                        this.starCheck(result,(i+roll))
+                        console.log(this.state.board)
+                        stopLoop = true
                     }
                 }
-
             }
         }
     }
@@ -91,18 +101,18 @@ class Board extends Component {
             <div>
                 {/* <div className="status">{status}</div> */}
                 <div className="row">
-                    <div className="col s4">
+                    <div className="col s4 id = 0">
                         {this.renderTile(0)}
                     </div>
-                    <div className="col s4">
+                    <div className="col s4 id = 1">
                         {this.renderTile(1)}
                     </div>
-                    <div className="col s4">
+                    <div className="col s4 id = 2">
                         {this.renderTile(2)}
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col s4 left">
+                    <div className="col s4 left id =  3">
                         {this.renderTile(3)}
                     </div>
                     {/* this is the code for the dice peice */}
@@ -119,18 +129,18 @@ class Board extends Component {
                         </div>
                     </div>
                     {/* this closes off the dice section */}
-                    <div className="col s4 right">
+                    <div className="col s4 right id = 7">
                         {this.renderTile(7)}
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col s4">
+                    <div className="col s4 id = 4">
                         {this.renderTile(4)}
                     </div>
-                    <div className="col s4">
+                    <div className="col s4 id =  5">
                         {this.renderTile(5)}
                     </div>
-                    <div className="col s4">
+                    <div className="col s4 id = 6">
                         {this.renderTile(6)}
                     </div>
                 </div>
