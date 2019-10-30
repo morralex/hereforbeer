@@ -14,8 +14,8 @@ class BoardTwo extends Component {
             current: "",
             face: "",
             tiles: Array(19).fill(null),
-            board: [[{ player: 1, coins: 21, stars: 0 }, { player: 2, coins: 0, stars: 0 }, { player: 3, coins: 0, stars: 0 }, { player: 4, coins: 0, stars: 0 }],
-            [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
+            board: [/*0*/[{ player: 1, coins: 21, stars: 0 }, { player: 2, coins: 0, stars: 0 }, { plaer: 3, coins: 0, stars: 0 }, { player: 4, coins: 0, stars: 0 }],
+            /*1*/[],/*2*/[], /*3*/[], /*4*/[], /*5*/[], /*6*/[], /*7*/[], /*8*/[], /*9*/[], /*10*/[], /*11*/[], /*12*/[], /*13*/[], /*14*/[], /*15*/[], /*16*/[], /*17*/[], /*18*/[]]
         }
     }
 
@@ -100,139 +100,110 @@ class BoardTwo extends Component {
     render() {
         return (
             <div>
-                <div classNam="row">
-                    <div className="col s4">
-
-                    </div>
-                    <div className="col s4 center-align">
-                        <div className="card blue-grey darken-1">
-                            <div className="row card-content white-text">
-                                <div id="die-pic">
-                                    <img id="diceImg" src={this.state.face} alt={this.state.face}></img>
+                <div className="row">
+      {/* ================================ Left Column ================================ */}
+                    <div className="col s3">
+                    {/* ======= this is the code for the dice peice ======= */}
+                        <div className="col s12 center-align">
+                            <div className="card blue-grey darken-1">
+                                <div className="row card-content white-text">
+                                    <div id="die-pic">
+                                        <img id="diceImg" src={this.state.face} alt={this.state.face}></img>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <button className="btn-large orange" onClick={this.setCurrentValue}>roll</button>
                                 </div>
                             </div>
-                            <div className="row">
-                                <button className="btn-large orange" onClick={this.setCurrentValue}>roll</button>
+                        </div>
+                    {/* ======= this closes off the dice section ======= */}
+                    </div>
+     {/* ================================ Gameboard Component ================================ */}
+                    <div className="col s6">
+                 {/* =========================== FIRST ROW =========================== */}
+                        <div className="row">
+                            <div className="col s2 id = 0">
+                                {this.renderTile(0)}
+                            </div>
+                            <div className="col s2 id = 1">
+                                {this.renderTile(1)}
+                            </div>
+                            <div className="col s2 id = 2">
+                                {this.renderTile(2)}
+                            </div>
+                            <div className="col s2 id = 3">
+                                {this.renderTile(3)}
+                            </div>
+                            <div className="col s2 id = 4">
+                                {this.renderTile(4)}
+                            </div>
+                            <div className="col s2 id = 5">
+                                {this.renderTile(5)}
                             </div>
                         </div>
-                    </div>
-                    <div className="col s4">
+                 {/* =========================== 2ND ROW =========================== */}
+                        <div className="row">
+                            <div className="col s2 right id = 6">
+                                {this.renderTile(6)}
+                            </div>
+                        </div>
+                 {/* =========================== 3RD ROW =========================== */}
+                      <div className="row">
+                            <div className="col s2 id = 16">
+                                {this.renderTile(16)}
+                            </div>
+                            <div className="col s2 id = 17">
+                                {this.renderTile(17)}
+                            </div>
+                            <div className="col s2 id = 18">
+                                {this.renderTile(18)}
+                            </div>
+                            <div className="col s2">
+                                {/* {this.renderTile(3)} */}
+                            </div>
+                            <div className="col s2 right id = 7">
+                                {this.renderTile(7)}
+                            </div>
+                        </div>
+                 {/* =========================== 4TH ROW =========================== */}
+                        <div className="row">
+                            <div className="col s2 left id = 15">
+                                {this.renderTile(15)}
+                            </div>
+                            <div className="col s2 right id = 8">
+                                {this.renderTile(8)}
+                            </div>
+                        </div>
+                 {/* =========================== 5TH ROW =========================== */}
+                        <div className="row">
+                            <div className="col s2 id = 14">
+                                {this.renderTile(14)}
+                            </div>
+                            <div className="col s2 id = 13">
+                                {this.renderTile(13)}
+                            </div>
+                            <div className="col s2 id = 12">
+                                {this.renderTile(12)}
+                            </div>
+                            <div className="col s2 id = 11">
+                                {this.renderTile(11)}
+                            </div>
+                            <div className="col s2 id = 10">
+                                {this.renderTile(10)}
+                            </div>
+                            <div className="col s2 id = 9">
+                                {this.renderTile(9)}
+                            </div>
+                        </div>
 
                     </div>
-                </div>
-                {/* ================ FIRST ROW ================ */}
-                <div>
-                    <div className="row">
-                        <div className="col s3">
-
-                        </div>
-                        <div className="col s1 id = 0">
-                            {this.renderTile(0)}
-                        </div>
-                        <div className="col s1 id = 1">
-                            {this.renderTile(1)}
-                        </div>
-                        <div className="col s1 id = 2">
-                            {this.renderTile(2)}
-                        </div>
-                        <div className="col s1 id = 3">
-                            {this.renderTile(3)}
-                        </div>
-                        <div className="col s1 id = 4">
-                            {this.renderTile(4)}
-                        </div>
-                        <div className="col s1 id = 5">
-                            {this.renderTile(5)}
-                        </div>
-                        <div className="col s3">
-
-                        </div>
-                    </div>
-                    {/* ================ 2ND ROW ================ */}
-                    <div className="row">
-                        <div className="col s8">
-
-                        </div>
-                        <div className="col s1 id = 6">
-                            {this.renderTile(6)}
-                        </div>
-                        <div className="col s3">
-
-                        </div>
-                    </div>
-                    {/* ================ 3RD ROW ================ */}
-                    <div className="row">
-                        <div className="col s3">
-
-                        </div>
-                        <div className="col s1 id = 16">
-                            {this.renderTile(16)}
-                        </div>
-                        <div className="col s1 id = 17">
-                            {this.renderTile(17)}
-                        </div>
-                        <div className="col s1 id = 18">
-                            {this.renderTile(18)}
-                        </div>
-                        <div className="col s2">
-                            {/* {this.renderTile(3)} */}
-                        </div>
-                        <div className="col s1 id = 7">
-                            {this.renderTile(7)}
-                        </div>
-                    </div>
+     {/* ================================ Right Column ================================ */}
                     <div className="col s3">
 
                     </div>
-                    {/* ================ 4TH ROW ================ */}
-                    <div className="row">
-                        <div className="col s3">
-
-                        </div>
-                        <div className="col s1 id = 15">
-                            {this.renderTile(15)}
-                        </div>
-                        <div className="col s4">
-
-                        </div>
-                        <div className="col s1 id = 8">
-                            {this.renderTile(8)}
-                        </div>
-                        <div className="col s3">
-
-                        </div>
-                    </div>
-                    {/* ================ 5TH ROW ================ */}
-                    <div className="row">
-                        <div className="col s3">
-
-                        </div>
-                        <div className="col s1 id = 14">
-                            {this.renderTile(14)}
-                        </div>
-                        <div className="col s1 id = 13">
-                            {this.renderTile(13)}
-                        </div>
-                        <div className="col s1 id = 12">
-                            {this.renderTile(12)}
-                        </div>
-                        <div className="col s1 id = 11">
-                            {this.renderTile(11)}
-                        </div>
-                        <div className="col s1 id = 10">
-                            {this.renderTile(10)}
-                        </div>
-                        <div className="col s1 id = 9">
-                            {this.renderTile(9)}
-                        </div>
-                        <div className="col s3">
-
-                        </div>
-                    </div>
-
                 </div>
-
             </div>
+
         )
     }
 }
