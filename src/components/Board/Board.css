@@ -2,3 +2,7 @@
     border-radius: 13%;
     height: 125px
 }
+
+.card {
+    max-width: 200vh;
+}

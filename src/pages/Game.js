@@ -1,5 +1,5 @@
 import React from "react";
-import Board from "../components/Board/Board";
+import BoardTwo from "../components/Board/BoardTwo";
 import Banner from "../components/Banner/Banner"
 
 function Game() {
@@ -7,7 +7,7 @@ function Game() {
     return (
         <div>
             <Banner />
-            <Board />
+            <BoardTwo />
         </div>
     )
 
