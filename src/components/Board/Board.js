@@ -112,8 +112,8 @@ class Board extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col s4 left id =  3">
-                        {this.renderTile(3)}
+                    <div className="col s4 left id =  7">
+                        {this.renderTile(7)}
                     </div>
                     {/* this is the code for the dice peice */}
                     <div className="col s4 center-align">
@@ -129,19 +129,19 @@ class Board extends Component {
                         </div>
                     </div>
                     {/* this closes off the dice section */}
-                    <div className="col s4 right id = 7">
-                        {this.renderTile(7)}
+                    <div className="col s4 right id = 3">
+                        {this.renderTile(3)}
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col s4 id = 4">
-                        {this.renderTile(4)}
+                    <div className="col s4 id = 6">
+                        {this.renderTile(6)}
                     </div>
                     <div className="col s4 id =  5">
                         {this.renderTile(5)}
                     </div>
-                    <div className="col s4 id = 6">
-                        {this.renderTile(6)}
+                    <div className="col s4 id = 4">
+                        {this.renderTile(4)}
                     </div>
                 </div>
             </div>
