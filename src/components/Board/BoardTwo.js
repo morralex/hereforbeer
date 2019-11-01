@@ -6,7 +6,7 @@ import faceThree from "../../images/dice/faceThree.png";
 import faceFour from "../../images/dice/faceFour.png";
 import faceFive from "../../images/dice/faceFive.png";
 import faceSix from "../../images/dice/faceSix.png";
-import Questions from "../Trivia/Question";
+import Questions from "../Questions/Questions";
 import "./Board.css"
 
 class BoardTwo extends Component {
@@ -222,10 +222,10 @@ class BoardTwo extends Component {
                     </div>
                     {/* ================================ Right Column ================================ */}
                     <div className="col s3">
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="card-panel blue-grey">
-                                    <h1></h1>
+                        <div className="row">
+                            <div className="col s12">
+                                <div className="card-panel blue-grey">
+                                    <h5 id="disQ"></h5>
                                 </div>
                             </div>
                         </div>
