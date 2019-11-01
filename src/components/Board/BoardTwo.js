@@ -8,6 +8,7 @@ import faceFive from "../../images/dice/faceFive.png";
 import faceSix from "../../images/dice/faceSix.png";
 import Questions from "../Questions/Questions";
 import "./Board.css"
+import { conditionalExpression } from "@babel/types";
 
 class BoardTwo extends Component {
     constructor(props) {
@@ -15,31 +16,37 @@ class BoardTwo extends Component {
         this.state = {
             current: "",
             face: "",
+            score: "",
+            trivia: [],
             tiles: Array(19).fill(null),
             board: [/*0*/[{ player: 1, coins: 21, stars: 0 }, { player: 2, coins: 0, stars: 0 }, { plaer: 3, coins: 0, stars: 0 }, { player: 4, coins: 0, stars: 0 }],
             /*1*/[],/*2*/[], /*3*/[], /*4*/[], /*5*/[], /*6*/[], /*7*/[], /*8*/[], /*9*/[], /*10*/[], /*11*/[], /*12*/[], /*13*/[], /*14*/[], /*15*/[], /*16*/[], /*17*/[], /*18*/[]]
         }
     }
 
+// =========================================== MULTIPLE CHOICE CODE
+
     rndQ = () => {
-        let randNum = Math.floor(Math.random() * 10 )
+        let randNum = Math.floor(Math.random() * 10)
         const selectedQ = Questions[randNum]
         console.log(selectedQ)
-
+        this.setState({ trivia: selectedQ })
     }
+// THIS IS JUST TO RENDER THE rndQ TO TEST BUT WE WANT TO COMMENT THIS OUT MOST LIKELY AND CALL IT ELSEWHERE
 
-    componentDidMount () {
+    componentDidMount() {
         this.rndQ()
     }
 
+    handleAnswer = (event) => {
+        event.preventDefaul()
+        const id = event.taget.id
+        if (this.state.trivia.answer === id) {
+            console.log(id)
+        }
+    }
 
-
-    // randomQ () {
-    //     let randNum = Math.floor(Math.random() * 10 )
-    //     console.log(randNum)
-    //     var selectedQ = Questions(randNum)
-    //     console.log(selectedQ);
-    // }
+// ================== THIS IS WHAT I GOT SO FAR; NOT SURE WHERE TO TAKE IT FROM HERE
 
     renderTile(i) {
         return (
@@ -51,15 +58,14 @@ class BoardTwo extends Component {
 
     roll = () => {
         return Math.floor(Math.random() * 3) + 1;
-        
+
     };
-    
+
     setCurrentValue = () => {
-        const val = this.roll()
+        const val = this.roll();
         const face = this.getFace(val);
-        this.setState({ current: val, face })
-        this.playerMove(val);
-        this.randomQ()
+        this.setState({ current: val, face });
+        this.playerMove(val)
     };
 
     starCheck = (player, postion) => {
@@ -124,7 +130,7 @@ class BoardTwo extends Component {
         return (
             <div>
                 <div className="row">
-                    {/* ================================ Left Column ================================ */}
+                    {/* ================================================= Left Column ================================================= */}
                     <div className="col s3">
                         {/* ======= this is the code for the dice peice ======= */}
                         <div className="col s12 center-align">
@@ -141,7 +147,7 @@ class BoardTwo extends Component {
                         </div>
                         {/* ======= this closes off the dice section ======= */}
                     </div>
-                    {/* ================================ Gameboard Component ================================ */}
+                    {/* ================================================= Gameboard Component ================================================= */}
                     <div className="col s6">
                         {/* =========================== FIRST ROW =========================== */}
                         <div className="row">
@@ -220,12 +226,26 @@ class BoardTwo extends Component {
                         </div>
 
                     </div>
-                    {/* ================================ Right Column ================================ */}
+                    {/* ================================================= Right Column ================================================= */}
                     <div className="col s3">
                         <div className="row">
                             <div className="col s12">
-                                <div className="card-panel blue-grey">
-                                    <h5 id="disQ"></h5>
+                                <div className="card-panel black white-text">
+                                    <h3 id="disQ">{this.state.trivia.prompt}</h3>
+                                    <h5>
+                                        <li>
+                                            <a href="" className="white-text" id="A" onClick={this.handleAnswer}>{this.state.trivia.option1}</a>
+                                        </li>
+                                        <li>
+                                            <a href="" className="white-text" id="B" onClick={this.handleAnswer}>{this.state.trivia.option2}</a>
+                                        </li>
+                                        <li>
+                                            <a href="" className="white-text" id="C" onClick={this.handleAnswer}>{this.state.trivia.option3}</a>
+                                        </li>
+                                        <li>
+                                            <a href="" className="white-text" id="D" onClick={this.handleAnswer}>{this.state.trivia.option4}</a>
+                                        </li>
+                                    </h5>
                                 </div>
                             </div>
                         </div>

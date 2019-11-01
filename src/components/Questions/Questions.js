@@ -65,7 +65,7 @@ const Questions = [
         answer: "D"
     },
     {
-        prompt: "Fill in the blanks; \nif _x > y_ _ \n alert ('Hello World!') \n_",
+        prompt: "Fill in the blanks; \nif _ x > y _ _ \n alert ('Hello World!') \n_",
         option1: 'A - [,],{,}',
         option2: 'B - {,},(,)',
         option3: 'C - (,),{,}',
