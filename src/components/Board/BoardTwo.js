@@ -6,7 +6,9 @@ import faceThree from "../../images/dice/faceThree.png";
 import faceFour from "../../images/dice/faceFour.png";
 import faceFive from "../../images/dice/faceFive.png";
 import faceSix from "../../images/dice/faceSix.png";
+import Questions from "../Trivia/Question";
 import "./Board.css"
+
 class BoardTwo extends Component {
     constructor(props) {
         super(props)
@@ -19,6 +21,26 @@ class BoardTwo extends Component {
         }
     }
 
+    rndQ = () => {
+        let randNum = Math.floor(Math.random() * 10 )
+        const selectedQ = Questions[randNum]
+        console.log(selectedQ)
+
+    }
+
+    componentDidMount () {
+        this.rndQ()
+    }
+
+
+
+    // randomQ () {
+    //     let randNum = Math.floor(Math.random() * 10 )
+    //     console.log(randNum)
+    //     var selectedQ = Questions(randNum)
+    //     console.log(selectedQ);
+    // }
+
     renderTile(i) {
         return (
             <Tile
@@ -29,14 +51,15 @@ class BoardTwo extends Component {
 
     roll = () => {
         return Math.floor(Math.random() * 3) + 1;
+        
     };
-
+    
     setCurrentValue = () => {
         const val = this.roll()
         const face = this.getFace(val);
         this.setState({ current: val, face })
         this.playerMove(val);
-
+        this.randomQ()
     };
 
     starCheck = (player, postion) => {
@@ -101,9 +124,9 @@ class BoardTwo extends Component {
         return (
             <div>
                 <div className="row">
-      {/* ================================ Left Column ================================ */}
+                    {/* ================================ Left Column ================================ */}
                     <div className="col s3">
-                    {/* ======= this is the code for the dice peice ======= */}
+                        {/* ======= this is the code for the dice peice ======= */}
                         <div className="col s12 center-align">
                             <div className="N/A transparent" id="cardBkG">
                                 <div className="row card-content white-text">
@@ -116,11 +139,11 @@ class BoardTwo extends Component {
                                 </div>
                             </div>
                         </div>
-                    {/* ======= this closes off the dice section ======= */}
+                        {/* ======= this closes off the dice section ======= */}
                     </div>
-     {/* ================================ Gameboard Component ================================ */}
+                    {/* ================================ Gameboard Component ================================ */}
                     <div className="col s6">
-                 {/* =========================== FIRST ROW =========================== */}
+                        {/* =========================== FIRST ROW =========================== */}
                         <div className="row">
                             <div className="col s2 id = 0">
                                 {this.renderTile(0)}
@@ -141,14 +164,14 @@ class BoardTwo extends Component {
                                 {this.renderTile(5)}
                             </div>
                         </div>
-                 {/* =========================== 2ND ROW =========================== */}
+                        {/* =========================== 2ND ROW =========================== */}
                         <div className="row">
                             <div className="col s2 right id = 6">
                                 {this.renderTile(6)}
                             </div>
                         </div>
-                 {/* =========================== 3RD ROW =========================== */}
-                      <div className="row">
+                        {/* =========================== 3RD ROW =========================== */}
+                        <div className="row">
                             <div className="col s2 id = 16">
                                 {this.renderTile(16)}
                             </div>
@@ -165,7 +188,7 @@ class BoardTwo extends Component {
                                 {this.renderTile(7)}
                             </div>
                         </div>
-                 {/* =========================== 4TH ROW =========================== */}
+                        {/* =========================== 4TH ROW =========================== */}
                         <div className="row">
                             <div className="col s2 left id = 15">
                                 {this.renderTile(15)}
@@ -174,7 +197,7 @@ class BoardTwo extends Component {
                                 {this.renderTile(8)}
                             </div>
                         </div>
-                 {/* =========================== 5TH ROW =========================== */}
+                        {/* =========================== 5TH ROW =========================== */}
                         <div className="row">
                             <div className="col s2 id = 14">
                                 {this.renderTile(14)}
@@ -197,9 +220,15 @@ class BoardTwo extends Component {
                         </div>
 
                     </div>
-     {/* ================================ Right Column ================================ */}
+                    {/* ================================ Right Column ================================ */}
                     <div className="col s3">
-
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="card-panel blue-grey">
+                                    <h1></h1>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
