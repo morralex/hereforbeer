@@ -9,44 +9,48 @@ div.box {
 .player1 {
     background-color: red;
     color: white;
-    height: 40px;
-    width: 40px;
+    height: 40%;
+    width: 40%;
     position: absolute;
     top: 0;
     right: 0;
     border-style: solid;
     border-color: black;
+    border-radius: 75%;
 }
 .player2 {
     background-color: blue;
     color: white;
-    height: 40px;
-    width: 40px;
+    height: 40%;
+    width: 40%;
     position: absolute;
     top: 0;
     left: 0;
     border-style: solid;
     border-color: black;
+    border-radius: 75%;
 }
 .player3 {
     background-color: green;
     color: white;
-    height: 40px;
-    width: 40px;
+    height: 40%;
+    width: 40%;
     position: absolute;
     bottom: 0;
     left: 0;
     border-style: solid;
     border-color: black;
+    border-radius: 75%;
 }
 .player4 {
     background-color: yellow;
     color: white;
-    height: 40px;
-    width: 40px;
+    height: 40%;
+    width: 40%;
     position: absolute;
     bottom: 0;
     right: 0;
     border-style: solid;
     border-color: black;
+    border-radius: 75%;
 }
