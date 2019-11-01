@@ -7,6 +7,8 @@ import faceFour from "../../images/dice/faceFour.png";
 import faceFive from "../../images/dice/faceFive.png";
 import faceSix from "../../images/dice/faceSix.png";
 import "./Board.css"
+import Swal from "sweetalert2";
+
 class BoardTwo extends Component {
     constructor(props) {
         super(props)
@@ -14,9 +16,13 @@ class BoardTwo extends Component {
             current: "",
             face: "",
             tiles: Array(19).fill(null),
-            board: [/*0*/[{ player: 1, coins: 21, stars: 0 }, { player: 2, coins: 0, stars: 0 }, { plaer: 3, coins: 0, stars: 0 }, { player: 4, coins: 0, stars: 0 }],
-            /*1*/[],/*2*/[], /*3*/[], /*4*/[], /*5*/[], /*6*/[], /*7*/[], /*8*/[], /*9*/[], /*10*/[], /*11*/[], /*12*/[], /*13*/[], /*14*/[], /*15*/[], /*16*/[], /*17*/[], /*18*/[]]
-        }
+            board: [/*0*/[{ player: 1, coins: 21, stars: 0 }, { player: 2, coins: 0, stars: 0 }, { player: 3, coins: 0, stars: 0 }, { player: 4, coins: 0, stars: 0 }],
+            /*1*/[],/*2*/[], /*3*/[], /*4*/[], /*5*/[], /*6*/[], /*7*/[], /*8*/[], /*9*/[], /*10*/[], /*11*/[], /*12*/[], /*13*/[], /*14*/[], /*15*/[], /*16*/[], /*17*/[], /*18*/[]],
+            whosTurn: this.props.myTurn,
+        };
+
+        this.gameOver = false;
+        this.counter = 0;
     }
 
     renderTile(i) {
@@ -98,8 +104,12 @@ class BoardTwo extends Component {
     }
 
     render() {
+        let status;
+  // Change to current player's turn
+  status = `${this.state.whosTurn ? "Your turn" : "Opponent's turn"}`;
         return (
             <div>
+                <p className="status-info">{status}</p>   
                 <div className="row">
       {/* ================================ Left Column ================================ */}
                     <div className="col s3">
