@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Questions</title>
+</head>
+<body>
+    <button id="modalBtn" class="button">Click Here</button>
+  
+    <div id="simpleModal" class="modal">
+        <div class="modal-content">
+           <span class="closeBtn">&times;</span> 
+          <div id="question"> <h3>Quiz Time!</h3></div>
+            <div id="question-container">
+
+            </div>
+            <div id="timer">
+              <div id="counter"> 5 </div>
+              <div id="btimeGauge"></div>
+              <div id="timeGauge"></div>
+            </div>
+            <div id="answers">
+                <button class="options" id="A">A</button>
+                <button class="options" id="B">B</button>
+                <button class="options" id="C">C</button>
+                <button class="options" id="D">D</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script src="modal.js"></script>
+  <script src="../Q'sandA's/qanda.js"></script>
+</body>
+</html>
