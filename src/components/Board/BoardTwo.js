@@ -105,7 +105,7 @@ class BoardTwo extends Component {
                     <div className="col s3">
                     {/* ======= this is the code for the dice peice ======= */}
                         <div className="col s12 center-align">
-                            <div className="card blue-grey darken-1">
+                            <div className="N/A transparent" id="cardBkG">
                                 <div className="row card-content white-text">
                                     <div id="die-pic">
                                         <img id="diceImg" src={this.state.face} alt={this.state.face}></img>
