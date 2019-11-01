@@ -39,10 +39,12 @@ class BoardTwo extends Component {
     }
 
     handleAnswer = (event) => {
-        event.preventDefaul()
-        const id = event.taget.id
+        event.preventDefault()
+        const id = event.target.id
         if (this.state.trivia.answer === id) {
-            console.log(id)
+            alert("CORRECT!")
+        } else {
+            alert ("😤")
         }
     }
 
@@ -231,21 +233,22 @@ class BoardTwo extends Component {
                         <div className="row">
                             <div className="col s12">
                                 <div className="card-panel black white-text">
-                                    <h3 id="disQ">{this.state.trivia.prompt}</h3>
-                                    <h5>
+                                    <h4>QUESTION:</h4>
+                                    <h5 id="disQ">{this.state.trivia.prompt}</h5>
+                                    <h6>
                                         <li>
-                                            <a href="" className="white-text" id="A" onClick={this.handleAnswer}>{this.state.trivia.option1}</a>
+                                            <a className="white-text" id="A" onClick={this.handleAnswer}>{this.state.trivia.option1}</a>
                                         </li>
                                         <li>
-                                            <a href="" className="white-text" id="B" onClick={this.handleAnswer}>{this.state.trivia.option2}</a>
+                                            <a className="white-text" id="B" onClick={this.handleAnswer}>{this.state.trivia.option2}</a>
                                         </li>
                                         <li>
-                                            <a href="" className="white-text" id="C" onClick={this.handleAnswer}>{this.state.trivia.option3}</a>
+                                            <a className="white-text" id="C" onClick={this.handleAnswer}>{this.state.trivia.option3}</a>
                                         </li>
                                         <li>
-                                            <a href="" className="white-text" id="D" onClick={this.handleAnswer}>{this.state.trivia.option4}</a>
+                                            <a className="white-text" id="D" onClick={this.handleAnswer}>{this.state.trivia.option4}</a>
                                         </li>
-                                    </h5>
+                                    </h6>
                                 </div>
                             </div>
                         </div>
