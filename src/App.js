@@ -6,8 +6,8 @@ import PubNubReact from 'pubnub-react';
 import Swal from "sweetalert2";
 import shortid from 'shortid';
 
-const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-const SUBSCRIBER_KEY = process.env.REACT_APP_WEATHER_API_SUBSCRIBER_KEY;
+const API_KEY = process.env.REACT_APP_API_KEY;
+const SUBSCRIBER_KEY = process.env.REACT_APP_API_SUBSCRIBER_KEY;
 
 class App extends Component {
   constructor(props) {
