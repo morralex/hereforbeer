@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import BoardTwo from "./components/Board/BoardTwo"
+import Banner from "./components/Banner/Banner"
 import './App.css';
 import Game from "./pages/Game"
 import PubNubReact from 'pubnub-react';
 import Swal from "sweetalert2";
 import shortid from 'shortid';
-
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class App extends Component {
     });
 
     this.state = {
-      player: '', // X or O
+      currentPlayer: '', // X or O
       isPlaying: false, // Set to true when 2 players are in a channel
       isRoomCreator: false,
       isDisabled: false,
@@ -43,24 +44,15 @@ class App extends Component {
         if (msg.message.notRoomCreator) {
           // Create a different channel for the game
           this.gameChannel = 'tictactoegame--' + this.roomId;
-
+          console.log(this.gameChannel);
           this.pubnub.subscribe({
             channels: [this.gameChannel]
+
           });
 
-          this.pubnub.hereNow({
-            channels: [this.lobbyChannel],
-          }).then((response) => {
-            if (response.totalOccupancy === 4) {
-              this.setState({
-                isPlaying: true
-              });
-            }
-            
-          }).catch((error) => {
-            console.log(error);
+          this.setState({
+            isPlaying: true
           });
-
 
           // Close the modals if they are opened
           Swal.close();
@@ -74,11 +66,13 @@ class App extends Component {
   onPressCreate = (e) => {
     // Create a random name for the channel
     this.roomId = shortid.generate().substring(0, 5);
-    this.lobbyChannel = this.roomId; // Lobby channel name
+    this.lobbyChannel = 'tictactoelobby--' + this.roomId;
+
     this.pubnub.subscribe({
       channels: [this.lobbyChannel],
       withPresence: true // Checks the number of people in the channel
     });
+
     Swal.fire({
       position: 'top',
       allowOutsideClick: false,
@@ -95,7 +89,7 @@ class App extends Component {
       }
     })
     this.setState({
-      player: '1',
+      currentPlayer: 'X',
       isRoomCreator: true,
       isDisabled: true, // Disable the 'Create' button
       myTurn: true, // Player X makes the 1st move
@@ -131,21 +125,21 @@ class App extends Component {
   // Join a room channel
   joinRoom = (value) => {
     this.roomId = value;
-    this.lobbyChannel = this.roomId;
+    this.lobbyChannel = 'tictactoelobby--' + this.roomId;
 
     // Check the number of people in the channel
     this.pubnub.hereNow({
       channels: [this.lobbyChannel],
     }).then((response) => {
-      if (response.totalOccupancy < 4) {
+      console.log(response)
+      if (response.totalOccupancy < 2) {
         this.pubnub.subscribe({
           channels: [this.lobbyChannel],
           withPresence: true
         });
-        console.log(response.totalOccupancy)
 
         this.setState({
-          player: response.totalOccupancy+1, // Player O
+          currentPlayer: 'O',
         });
 
         this.pubnub.publish({
@@ -154,7 +148,7 @@ class App extends Component {
           },
           channel: this.lobbyChannel
         });
-
+        console.log(response)
       }
       else {
         // Game in progress
@@ -181,7 +175,7 @@ class App extends Component {
   // Reset everything
   endGame = () => {
     this.setState({
-      // piece: '',
+      currentPlayer: '',
       isPlaying: false,
       isRoomCreator: false,
       isDisabled: false,
@@ -200,36 +194,39 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div className="button-container">
-          <button
-            className="create-button "
-            disabled={this.state.isDisabled}
-            onClick={(e) => this.onPressCreate()}
-          > Create
+        {
+          !this.state.isPlaying &&
+          <div className="button-container">
+            <button
+              className="create-button "
+              disabled={this.state.isDisabled}
+              onClick={(e) => this.onPressCreate()}
+            > Create
               </button>
-          <button
-            className="join-button"
-            onClick={(e) => this.onPressJoin()}
-          > Join
+            <button
+              className="join-button"
+              onClick={(e) => this.onPressJoin()}
+            > Join
               </button>
-        </div>
+          </div>
+        }
         {
           this.state.isPlaying &&
-          <Game
+          <Banner />
+        }
+        {
+          this.state.isPlaying &&
+          <BoardTwo
             pubnub={this.pubnub}
             gameChannel={this.gameChannel}
-            player={this.state.player}
+            currentPlayer={this.state.currentPlayer}
             isRoomCreator={this.state.isRoomCreator}
             myTurn={this.state.myTurn}
             Username1={this.state.Username1}
             Username2={this.state.Username2}
-            Username3={this.state.Username3}
-            Username4={this.state.Username4}
             endGame={this.endGame}
           />
         }
-
-
       </div>
     );
   }
