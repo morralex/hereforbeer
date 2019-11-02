@@ -6,7 +6,8 @@ import faceThree from "../../images/dice/faceThree.png";
 import faceFour from "../../images/dice/faceFour.png";
 import faceFive from "../../images/dice/faceFive.png";
 import faceSix from "../../images/dice/faceSix.png";
-import "./Board.css"
+import "./Board.css";
+import Questions from "../Questions/Questions";
 import Swal from "sweetalert2";
 
 
@@ -23,29 +24,154 @@ class BoardTwo extends Component {
 
             board: [/*0*/[{ player: 1, coins: 21, stars: 0 }, { player: 2, coins: 0, stars: 0 }, { player: 3, coins: 0, stars: 0 }, { player: 4, coins: 0, stars: 0 }],
             /*1*/[],/*2*/[], /*3*/[], /*4*/[], /*5*/[], /*6*/[], /*7*/[], /*8*/[], /*9*/[], /*10*/[], /*11*/[], /*12*/[], /*13*/[], /*14*/[], /*15*/[], /*16*/[], /*17*/[], /*18*/[]],
-            currentPosition: '',
-       
+
             whosTurn: this.props.myTurn,
+            optionChosen: '',
             score1: 0,
             score2: 0,
+          
+
         };
         this.turn = "X";
+        this.questionTime = false;
+        this.questionIndex = 0;
         console.log(this.turn);
         this.gameOver = false;
         this.counter = 0;
         this.currentRound = 1;
         this.playerResult = '';
         this.playerRoll = '';
+        this.playersPlayed = 0;
+        this.playerOneAnswer = '';
+        this.playerTwoAnswer = '';
     }
+    
 
     componentDidMount() {
         this.props.pubnub.getMessage(this.props.gameChannel, (msg) => {
-          console.log(msg.message.board);
             if (msg.message.turn === this.props.currentPlayer) {
                 this.publishMove(msg.message.board);
+
             }
+            // this.publishScore1(msg.message.score1);
+            // this.publishScore2(msg.message.score2);
+            this.publishScore(msg.message.score1, msg.message.score2)
+        })
+        this.rndQ()
+    }
+
+    rndQ = (questionIndex) => {
+        // let randNum = Math.floor(Math.random() * 10)
+        const selectedQ = Questions[questionIndex]
+        console.log(selectedQ)
+
+    }
+
+    
+
+    answerChosen = (e) => {
+        const answerPassed = e.target.id;
+        // if (this.props.currentPlayer === 'X') {
+        //     this.setState({
+        //         optionChosen: answerPassed
+        //     });
+        // }
+        // else {
+        //     this.setState({
+        //         optionChosen: answerPassed
+        //     });
+        // }
+        this.setState({
+            optionChosen: answerPassed
+        });
+
+        // Questions[this.questionIndex].answer
+
+        console.log(this.state.optionChosen);
+        // this.answerCheck(this.state.optionChosen);
+        if (this.state.optionChosen === Questions[this.questionIndex].answer) {
+            console.log("Answer is correct")
+            // if (this.props.currentPlayer === 'X') {
+            //     this.score1 = this.score1 + 10;
+            //     console.log(this.score1)
+            //     console.log(this.score2)
+            // }
+            // else {
+            //     this.score2 = this.score2 + 10;
+            //     console.log(this.score2)
+            //     console.log(this.score2)
+            // }
+            let pieces = {
+                'X': this.state.score1,
+                'O': this.state.score2
+            }
+            switch (this.props.currentPlayer) {
+                case 'X':
+                        pieces['X']+=10;
+                    this.setState({
+                        score1: pieces['X']
+                    })
+                    
+                    console.log(this.props.currentPlayer)
+                    break;
+
+                case 'O':
+                    pieces['O']+=10;
+                        this.setState({
+                            score2: pieces['O']
+                        })
+                  
+                    console.log(this.props.currentPlayer)
+                    break;
+                default:
+                    break;
+            }
+
+
+        }
+        else {
+            console.log("Answer is incorrect")
+        }
+        // this.props.pubnub.publish({
+        //     message: {
+        //         score1: this.scoreOne,
+        //         score2: this.scoreTwo
+        //     },
+        //     channel: this.props.gameChannel
+        // });
+        this.props.pubnub.publish({
+            message: {
+                score1: this.state.score1,
+                score2: this.state.score2
+            },
+            channel: this.props.gameChannel
+        });
+     
+    }
+
+    publishScore = (score1, score2) => {
+
+        this.setState({
+            score1: score1,
+            score2: score2
         })
     }
+
+
+    // publishScore1 = (score1) => {
+    //     this.setState({
+    //         score1: score1,
+    //     });
+    // }
+    // publishScore2 = (score2) => {
+    //     this.setState({
+    //         score2: score2
+    //     });
+    // }
+
+
+
+
 
     // componentDidMount() {
     //     this.props.pubnub.getMessage(this.props.gameChannel, (msg) => {
@@ -62,7 +188,7 @@ class BoardTwo extends Component {
     //                 // squares: Array(9).fill(''),
     //                 // whosTurn: this.props.myTurn,
 
-                 
+
     //                 board: [/*0*/[{ player: 1, coins: 21, stars: 0 }, { player: 2, coins: 0, stars: 0 }, { player: 3, coins: 0, stars: 0 }, { player: 4, coins: 0, stars: 0 }],
     //         /*1*/[],/*2*/[], /*3*/[], /*4*/[], /*5*/[], /*6*/[], /*7*/[], /*8*/[], /*9*/[], /*10*/[], /*11*/[], /*12*/[], /*13*/[], /*14*/[], /*15*/[], /*16*/[], /*17*/[], /*18*/[]],
     //                 whosTurn: this.props.myTurn,
@@ -199,10 +325,11 @@ class BoardTwo extends Component {
             return faceSix
         }
     }
+
     publishMove = (board) => {
-        
+
         // this.turn = (this.currentPosition === 1)? 'O' : 'X';
-        this.turn = this.turn = (this.turn === 'X') ? 'O' : 'X';
+        this.turn = (this.turn === 'X') ? 'O' : 'X';
         this.setState({
             board: board,
             whosTurn: !this.state.whosTurn
@@ -214,61 +341,64 @@ class BoardTwo extends Component {
         console.log(this.props.gameChannel)
         const board = this.state.board;
 
-            let stopLoop = false;
-            for (let i = 0; i < board.length; i++) {
-                let x = -1;
-                if (stopLoop === false) {
-                    let result = board[i].find(obj => {
-                        x++;
-                        if(this.turn === 'X'){
-                            this.state.currentPosition = 1;
-                            return obj.player === 1;
-                        }
-                        else {
-                            this.state.currentPosition = 2;
-                            return obj.player === 2;
-                        }
-                    })
-                    if (result !== undefined) {
-                        console.log(`The current position is ${i + roll}`)
-                        console.log(`The X is ${x}`)
-                        board[i].splice(x, 1)
-                        if (i + roll <= 18) {
-                            board[i + roll].push(result);
-                            this.playerResult = result;
-                            this.playerRoll = i + roll;
-                            console.log(board)
-                            // this.state.currentPosition = this.state.board;
-                            stopLoop = true;
-                        }
-                        else {
-                            board[(i + roll) - (board.length)].push(result);
-                            this.starCheck(result, (i + roll))
-                            this.playerRoll = i + roll;
-                            this.playerResult = result;
-                            console.log(board)
-                            // this.state.currentPosition = this.state.board;
-                            stopLoop = true
-                        }
+        let stopLoop = false;
+        for (let i = 0; i < board.length; i++) {
+            let x = -1;
+            if (stopLoop === false) {
+                let result = board[i].find(obj => {
+                    x++;
+                    if (this.turn === 'X') {
+                        return obj.player === 1;
+                    }
+                    else {
+                        return obj.player === 2;
+                    }
+                })
+                if (result !== undefined) {
+                    console.log(`The current position is ${i + roll}`)
+                    console.log(`The X is ${x}`)
+                    board[i].splice(x, 1)
+                    if (i + roll <= 18) {
+                        board[i + roll].push(result);
+                        this.playerResult = result;
+                        this.playerRoll = i + roll;
+                        console.log(board)
+                        // this.state.currentPosition = this.state.board;
+                        stopLoop = true;
+                    }
+                    else {
+                        board[(i + roll) - (board.length)].push(result);
+                        this.starCheck(result, (i + roll))
+                        this.playerRoll = i + roll;
+                        this.playerResult = result;
+                        console.log(board)
+                        // this.state.currentPosition = this.state.board;
+                        stopLoop = true
                     }
                 }
             }
+        }
 
-            this.setState({
-                whosTurn: !this.state.whosTurn
-            })
-            this.turn = (this.turn === 'X') ? 'O' : 'X';
-            console.log(this.props.currentPlayer);
-            console.log(this.turn);
-            console.log(this.board)
-            this.props.pubnub.publish({
-                message: {
-                    board: this.state.board,
-                    currentPlayer: this.props.currentPlayer,
-                    turn: this.turn
-                },
-                channel: this.props.gameChannel
-            });
+        this.setState({
+            whosTurn: !this.state.whosTurn
+        })
+        this.turn = (this.turn === 'X') ? 'O' : 'X';
+        this.playersPlayed++;
+        console.log(this.playersPlayed)
+        console.log(this.props.currentPlayer);
+
+        console.log(this.turn);
+        console.log(this.board)
+        this.props.pubnub.publish({
+            message: {
+                board: this.state.board,
+                currentPlayer: this.props.currentPlayer,
+                turn: this.turn
+            },
+            channel: this.props.gameChannel
+        });
+
+
     }
 
     render() {
@@ -278,6 +408,12 @@ class BoardTwo extends Component {
         return (
             <div>
                 <p className="status-info">{status}</p>
+                <div>
+                    <p>Player 1 - Points: {this.state.score1}    ||    Stars: </p>
+                </div>
+                <div>
+                    <p>Player 2 - Points: {this.state.score2}    ||    Stars: </p>
+                </div>
                 <div className="row">
                     {/* ================================ Left Column ================================ */}
                     <div className="col s3">
@@ -376,9 +512,38 @@ class BoardTwo extends Component {
 
                     </div>
                     {/* ================================ Right Column ================================ */}
-                    <div className="col s3">
+                    {!this.questionTime &&
+                        <div className="col s3">
+                            Question Time!
+                            <div className="button-container">
+                                <div>
+                                    {Questions[this.questionIndex].prompt}
+                                </div>
+                                <button
+                                    className="question-button" id='A'
+                                    onClick={(e) => this.answerChosen(e)}
+                                > {Questions[this.questionIndex].option1}
+                                </button>
+                                <button
+                                    className="question-button" id='B'
+                                    onClick={(e) => this.answerChosen(e)}
+                                > {Questions[this.questionIndex].option2}
+                                </button>
+                                <button
+                                    className="question-button" id='C'
+                                    onClick={(e) => this.answerChosen(e)}
+                                > {Questions[this.questionIndex].option3}
+                                </button>
+                                <button
+                                    className="question-button" id='D'
+                                    onClick={(e) => this.answerChosen(e)}
+                                > {Questions[this.questionIndex].option4}
+                                </button>
+                            </div>
+                        </div>
 
-                    </div>
+                    }
+
                 </div>
             </div>
 

@@ -21,6 +21,8 @@ class App extends Component {
       isRoomCreator: false,
       isDisabled: false,
       myTurn: false,
+      // score1: 0,
+      // score2: 0,
     };
 
     this.lobbyChannel = null; // Lobby channel
@@ -195,18 +197,31 @@ class App extends Component {
       <div>
         {
           !this.state.isPlaying &&
-          <div className="button-container">
-            <button
-              className="create-button "
-              disabled={this.state.isDisabled}
-              onClick={(e) => this.onPressCreate()}
-            > Create
-              </button>
-            <button
-              className="join-button"
-              onClick={(e) => this.onPressJoin()}
-            > Join
-              </button>
+          <div className="row valign-wrapper center-align">
+            <div className="col">
+            
+                <div className="row">Here for Beer...the game</div>
+                <div className="row">
+
+                  <div className="button-container">
+                    <button
+                      className="create-button "
+                      disabled={this.state.isDisabled}
+                      onClick={(e) => this.onPressCreate()}
+                    > Create
+                  </button>
+
+
+                    <button
+                      className="join-button"
+                      onClick={(e) => this.onPressJoin()}
+                    > Join
+                  </button>
+
+               
+                </div>
+              </div>
+            </div>
           </div>
         }
         {
@@ -224,6 +239,8 @@ class App extends Component {
             Username1={this.state.Username1}
             Username2={this.state.Username2}
             endGame={this.endGame}
+            // score1={this.state.score1}
+            // score2={this.state.score2}
           />
         }
       </div>
