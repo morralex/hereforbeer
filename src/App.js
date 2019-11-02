@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import BoardTwo from "./components/Board/BoardTwo"
 import Banner from "./components/Banner/Banner"
 import './App.css';
-import Game from "./pages/Game"
 import PubNubReact from 'pubnub-react';
 import Swal from "sweetalert2";
 import shortid from 'shortid';

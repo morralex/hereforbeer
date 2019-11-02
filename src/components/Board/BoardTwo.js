@@ -30,6 +30,7 @@ class BoardTwo extends Component {
             score2: 0,
         };
         this.turn = "X";
+        console.log(this.turn);
         this.gameOver = false;
         this.counter = 0;
         this.currentRound = 1;
@@ -201,7 +202,7 @@ class BoardTwo extends Component {
     publishMove = (board) => {
         
         // this.turn = (this.currentPosition === 1)? 'O' : 'X';
-        this.turn = this.turn;
+        this.turn = this.turn = (this.turn === 'X') ? 'O' : 'X';
         this.setState({
             board: board,
             whosTurn: !this.state.whosTurn
