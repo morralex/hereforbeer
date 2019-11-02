@@ -6,13 +6,16 @@ import PubNubReact from 'pubnub-react';
 import Swal from "sweetalert2";
 import shortid from 'shortid';
 
+const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+const SUBSCRIBER_KEY = process.env.REACT_APP_WEATHER_API_SUBSCRIBER_KEY;
+
 class App extends Component {
   constructor(props) {
     super(props);
     // REPLACE with your keys
     this.pubnub = new PubNubReact({
-      publishKey: "pub-c-7ad97da2-e9c7-4fbf-b13c-45c67453d696",
-      subscribeKey: "sub-c-8a109564-fa3f-11e9-a301-7a3b1591b90a"
+      publishKey: API_KEY,
+      subscribeKey: SUBSCRIBER_KEY
     });
 
     this.state = {
