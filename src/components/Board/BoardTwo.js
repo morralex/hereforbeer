@@ -22,6 +22,7 @@ class BoardTwo extends Component {
             board: [/*0*/[{ player: 1, coins: 21, stars: 0 }, { player: 2, coins: 0, stars: 0 }, { plaer: 3, coins: 0, stars: 0 }, { player: 4, coins: 0, stars: 0 }],
             /*1*/[],/*2*/[], /*3*/[], /*4*/[], /*5*/[], /*6*/[], /*7*/[], /*8*/[], /*9*/[], /*10*/[], /*11*/[], /*12*/[], /*13*/[], /*14*/[], /*15*/[], /*16*/[], /*17*/[], /*18*/[]]
         }
+        this.questionTime = false;
     }
 
 // =========================================== MULTIPLE CHOICE CODE
@@ -42,10 +43,15 @@ class BoardTwo extends Component {
         event.preventDefault()
         const id = event.target.id
         if (this.state.trivia.answer === id) {
-            alert("CORRECT!")
+            alert("CORRECT!");
+            this.questionTime = false;
+            this.rndQ();
         } else {
-            alert ("😤")
+            alert ("😤");
+            this.questionTime = false;
+            this.rndQ();
         }
+       
     }
 
 // ================== THIS IS WHAT I GOT SO FAR; NOT SURE WHERE TO TAKE IT FROM HERE
@@ -60,6 +66,7 @@ class BoardTwo extends Component {
 
     roll = () => {
         return Math.floor(Math.random() * 3) + 1;
+        this.rndQ()
 
     };
 
@@ -126,6 +133,7 @@ class BoardTwo extends Component {
                 }
             }
         }
+        this.questionTime = true;
     }
 
     render() {
@@ -229,6 +237,7 @@ class BoardTwo extends Component {
 
                     </div>
                     {/* ================================================= Right Column ================================================= */}
+                    {this.questionTime &&
                     <div className="col s3">
                         <div className="row">
                             <div className="col s12">
@@ -253,6 +262,7 @@ class BoardTwo extends Component {
                             </div>
                         </div>
                     </div>
+                    }
                 </div>
             </div>
 
